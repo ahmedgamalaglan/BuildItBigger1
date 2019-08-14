@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -23,12 +24,12 @@ public class MainActivityTest {
     public void testAsyncTask() throws InterruptedException, ExecutionException {
         // on the MainActivity execute the AsyncTask
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask();
-        endpointsAsyncTask.execute(new Pair<>(activityTestRule.getActivity(), ""));
+        endpointsAsyncTask.execute(activityTestRule.getActivity());
 
         // the String returned in the onPostExecute is being retrieved
         String randomJoke = endpointsAsyncTask.get();
 
         // If the string is not null, then we got a value, aka a joke
-        assertNotNull(randomJoke);
+        assertTrue(!randomJoke.isEmpty());
     }
 }
